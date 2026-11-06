@@ -2,6 +2,9 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Pages\Tenancy\EditPropertyProfile;
+use App\Filament\Pages\Tenancy\RegisterProperty;
+use App\Models\Property;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -33,6 +36,9 @@ class AppPanelProvider extends PanelProvider
             ->emailVerification()
             ->emailChangeVerification()
             ->profile()
+            ->tenant(Property::class)
+            ->tenantRegistration(RegisterProperty::class)
+            ->tenantProfile(EditPropertyProfile::class)
             ->colors([
                 'primary' => Color::Amber,
             ])
