@@ -2,5 +2,19 @@
     "Register property": "Реєстрація об’єкта",
     "Property profile": "Профіль об’єкта",
     "Name": "Назва",
-    "Address": "Адреса"
+    "Address": "Адреса",
+    "Meter": "Лічильник",
+    "Meters": "Лічильники",
+    "Service type": "Тип послуги",
+    "Gas": "Газ",
+    "Water": "Вода",
+    "Electricity": "Електроенергія",
+    "Zone count": "Кількість зон",
+    "Serial number": "Серійний номер",
+    "Installed at": "Дата встановлення",
+    "Removed at": "Дата демонтажу",
+    "Is active": "Активний",
+    "Active": "Активний",
+    "Inactive": "Неактивний",
+    "A removed meter cannot be active.": "Демонтований лічильник не може бути активним."
 }

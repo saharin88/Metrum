@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Meter;
 use App\Models\Property;
 use App\Models\User;
 use Illuminate\Support\Str;
@@ -34,5 +35,13 @@ describe('Property Model', function (): void {
         $property->users()->attach($user);
 
         expect($property->users->contains($user))->toBeTrue();
+    });
+
+    it('has many meters', function (): void {
+        $property = Property::factory()->create();
+        $meters = Meter::factory()->count(2)->for($property)->create();
+
+        expect($property->meters)->toHaveCount(2)
+            ->and($property->meters->contains($meters->first()))->toBeTrue();
     });
 });
