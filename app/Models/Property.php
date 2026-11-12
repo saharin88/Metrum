@@ -31,4 +31,12 @@ class Property extends Model
     {
         return $this->hasMany(Meter::class);
     }
+
+    /**
+     * @return HasMany<Reading, $this>
+     */
+    public function readings(): HasMany
+    {
+        return $this->hasMany(Reading::class);
+    }
 }
