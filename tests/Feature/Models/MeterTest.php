@@ -117,4 +117,25 @@ describe('Meter Model', function (): void {
             ->and($meter->zone_count)->toBeBetween(1, 5)
             ->and($meter->is_active)->toBeTrue();
     });
+
+    it('supports hot water and heating as service types', function (): void {
+        $hotWaterMeter = Meter::factory()->create(['service_type' => ServiceType::HotWater]);
+        $heatingMeter = Meter::factory()->create(['service_type' => ServiceType::Heating]);
+
+        expect($hotWaterMeter->service_type)->toBe(ServiceType::HotWater)
+            ->and(ServiceType::HotWater->getColor())->toBe('danger')
+            ->and($heatingMeter->service_type)->toBe(ServiceType::Heating)
+            ->and(ServiceType::Heating->getLabel())->toBe(__('Heating'))
+            ->and(ServiceType::Heating->getColor())->toBe('danger');
+    });
+
+    it('returns the measurement unit of every service type', function (ServiceType $serviceType, string $unit): void {
+        expect($serviceType->getUnit())->toBe($unit);
+    })->with([
+        'gas' => [ServiceType::Gas, 'м³'],
+        'water' => [ServiceType::Water, 'м³'],
+        'electricity' => [ServiceType::Electricity, 'кВт·год'],
+        'hot water' => [ServiceType::HotWater, 'м³'],
+        'heating' => [ServiceType::Heating, 'Гкал'],
+    ]);
 });

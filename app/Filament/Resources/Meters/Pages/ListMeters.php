@@ -13,7 +13,11 @@ class ListMeters extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            CreateAction::make(),
+            CreateAction::make()
+                ->label(__('Add meter'))
+                ->modalHeading(__('Add meter'))
+                ->modalSubmitActionLabel(__('Add'))
+                ->createAnother(false),
         ];
     }
 }

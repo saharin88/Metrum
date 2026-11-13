@@ -5,6 +5,7 @@ namespace App\Models;
 use Database\Factories\ReadingFactory;
 use DomainException;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -57,5 +58,19 @@ class Reading extends Model
     public function meter(): BelongsTo
     {
         return $this->belongsTo(Meter::class);
+    }
+
+    /**
+     * @param  Builder<self>  $query
+     */
+    public function scopeLatestPerZone(Builder $query): void
+    {
+        $query->whereNotExists(function (\Illuminate\Database\Query\Builder $subQuery): void {
+            $subQuery->selectRaw('1')
+                ->from('readings as newer_readings')
+                ->whereColumn('newer_readings.meter_id', 'readings.meter_id')
+                ->whereColumn('newer_readings.zone', 'readings.zone')
+                ->whereColumn('newer_readings.date', '>', 'readings.date');
+        });
     }
 }

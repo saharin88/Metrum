@@ -8,8 +8,14 @@
     "Service type": "Тип послуги",
     "Gas": "Газ",
     "Water": "Вода",
+    "Hot water": "Гаряча вода",
     "Electricity": "Електроенергія",
+    "Heating": "Теплопостачання",
+    "m³": "м³",
+    "kWh": "кВт·год",
+    "Gcal": "Гкал",
     "Zone count": "Кількість зон",
+    "Last reading": "Останній показник",
     "Serial number": "Серійний номер",
     "Installed at": "Дата встановлення",
     "Removed at": "Дата демонтажу",
@@ -40,5 +46,8 @@
     "Confirmation": "Підтвердження",
     "Submit a meter reading": "Додати показник лічильника",
     "Submit": "Додати",
-    "You must confirm that the readings are correct.": "Ви повинні підтвердити, що показники вірні."
+    "You must confirm that the readings are correct.": "Ви повинні підтвердити, що показники вірні.",
+    "Add meter": "Додати лічильник",
+    "Add": "Додати",
+    "Show all": "Показати всі"
 }

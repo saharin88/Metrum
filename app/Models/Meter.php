@@ -81,4 +81,14 @@ class Meter extends Model
     {
         return $this->hasMany(Reading::class);
     }
+
+    /**
+     * @return HasMany<Reading, $this>
+     */
+    public function latestReadings(): HasMany
+    {
+        return $this->hasMany(Reading::class)
+            ->latestPerZone()
+            ->orderBy('zone');
+    }
 }

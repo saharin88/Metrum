@@ -2,8 +2,6 @@
 
 namespace App\Filament\Resources\Meters;
 
-use App\Filament\Resources\Meters\Pages\CreateMeter;
-use App\Filament\Resources\Meters\Pages\EditMeter;
 use App\Filament\Resources\Meters\Pages\ListMeters;
 use App\Filament\Resources\Meters\Schemas\MeterForm;
 use App\Filament\Resources\Meters\Tables\MetersTable;
@@ -58,8 +56,6 @@ class MeterResource extends Resource
     {
         return [
             'index' => ListMeters::route('/'),
-            'create' => CreateMeter::route('/create'),
-            'edit' => EditMeter::route('/{record}/edit'),
         ];
     }
 }

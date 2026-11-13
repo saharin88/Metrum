@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Meters\Tables;
 
 use App\Enums\ServiceType;
+use App\Models\Meter;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
@@ -11,12 +12,14 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 
 class MetersTable
 {
     public static function configure(Table $table): Table
     {
         return $table
+            ->modifyQueryUsing(fn (Builder $query): Builder => $query->with('latestReadings'))
             ->columns([
                 TextColumn::make('name')
                     ->label(__('Name'))
@@ -29,7 +32,16 @@ class MetersTable
                 TextColumn::make('zone_count')
                     ->label(__('Zone count'))
                     ->alignCenter()
-                    ->sortable(),
+                    ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('latest_readings')
+                    ->label(__('Last reading'))
+                    ->alignCenter()
+                    ->placeholder('—')
+                    ->state(function (Meter $record): ?string {
+                        $values = $record->latestReadings->pluck('value');
+
+                        return $values->isEmpty() ? null : $values->implode(' / ');
+                    }),
                 TextColumn::make('serial_number')
                     ->label(__('Serial number'))
                     ->searchable()
@@ -38,7 +50,8 @@ class MetersTable
                     ->label(__('Installed at'))
                     ->alignCenter()
                     ->date()
-                    ->sortable(),
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('removed_at')
                     ->label(__('Removed at'))
                     ->alignCenter()
